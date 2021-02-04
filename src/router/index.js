@@ -1,11 +1,10 @@
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import {View, Text} from 'react-native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Home, Order, Profile, SignIn, SignUp, SplashScreen} from '../pages';
+import { ButtonNavigator } from '../components';
+import { FoodDetail, Home, Order, Profile, SignIn, SignUp, SplashScreen } from '../pages';
 import SignUpAddress from '../pages/SignUpAddress';
 import SuccessSignUp from '../pages/SuccessSignUp';
-import { ButtonNavigator } from '../components';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -51,6 +50,11 @@ const Router = () => {
       <Stack.Screen
         name="MainApp"
         component={MainApp}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="FoodDetail"
+        component={FoodDetail}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
