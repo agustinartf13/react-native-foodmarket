@@ -1,8 +1,18 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
-import { ButtonNavigator } from '../components';
-import { FoodDetail, Home, Order, Profile, SignIn, SignUp, SplashScreen } from '../pages';
+import {ButtonNavigator} from '../components';
+import {
+  FoodDetail,
+  Home,
+  Order,
+  OrderSummary,
+  Profile,
+  SignIn,
+  SignUp,
+  SplashScreen,
+  SuccessOrder,
+} from '../pages';
 import SignUpAddress from '../pages/SignUpAddress';
 import SuccessSignUp from '../pages/SuccessSignUp';
 
@@ -11,7 +21,7 @@ const Tab = createBottomTabNavigator();
 
 const MainApp = () => {
   return (
-    <Tab.Navigator tabBar={props => <ButtonNavigator {...props} />}>
+    <Tab.Navigator tabBar={(props) => <ButtonNavigator {...props} />}>
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Order" component={Order} />
       <Tab.Screen name="Profile" component={Profile} />
@@ -55,6 +65,16 @@ const Router = () => {
       <Stack.Screen
         name="FoodDetail"
         component={FoodDetail}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="OrderSummary"
+        component={OrderSummary}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="SuccessOrder"
+        component={SuccessOrder}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

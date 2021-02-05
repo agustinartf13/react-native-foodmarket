@@ -4,11 +4,11 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {foodDummy1, IcBackWhite} from '../../assets';
 import {Button, Counter, Rating} from '../../components';
 
-const FoodDetail = () => {
+const FoodDetail = ({navigation}) => {
   return (
     <View style={styles.page}>
       <ImageBackground source={foodDummy1} style={styles.cover}>
-        <TouchableOpacity style={styles.back}>
+        <TouchableOpacity style={styles.back} onPress={() => navigation.goBack()} activeOpacity={0.7}>
           <IcBackWhite />
         </TouchableOpacity>
       </ImageBackground>
@@ -35,7 +35,7 @@ const FoodDetail = () => {
             <Text style={styles.priceTotal}>IDR 12.289.000</Text>
           </View>
           <View style={styles.button}>
-            <Button label="Order Now" />
+            <Button label="Order Now" onPress={() => navigation.navigate("OrderSummary")} />
           </View>
         </View>
       </View>

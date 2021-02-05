@@ -18,14 +18,42 @@ import {useNavigation} from '@react-navigation/native';
 const NewTaste = () => {
   const navigation = useNavigation();
   return (
-    <View style={{paddingTop: 8}}>
-      <ItemListFood onPress={() => navigation.navigate('FoodDetail')} image={foodDummy3} />
-      <ItemListFood onPress={() => navigation.navigate('FoodDetail')} image={foodDummy4} />
-      <ItemListFood onPress={() => navigation.navigate('FoodDetail')} image={foodDummy5} />
-      <ItemListFood onPress={() => navigation.navigate('FoodDetail')} image={foodDummy6} />
-      <ItemListFood onPress={() => navigation.navigate('FoodDetail')} image={foodDummy7} />
-      <ItemListFood onPress={() => navigation.navigate('FoodDetail')} image={foodDummy8} />
-      <ItemListFood onPress={() => navigation.navigate('FoodDetail')} image={foodDummy9} />
+    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+      <ItemListFood
+        rating
+        onPress={() => navigation.navigate('FoodDetail')}
+        image={foodDummy3}
+      />
+      <ItemListFood
+        rating
+        onPress={() => navigation.navigate('FoodDetail')}
+        image={foodDummy4}
+      />
+      <ItemListFood
+        rating
+        onPress={() => navigation.navigate('FoodDetail')}
+        image={foodDummy5}
+      />
+      <ItemListFood
+        rating
+        onPress={() => navigation.navigate('FoodDetail')}
+        image={foodDummy6}
+      />
+      <ItemListFood
+        rating
+        onPress={() => navigation.navigate('FoodDetail')}
+        image={foodDummy7}
+      />
+      <ItemListFood
+        rating
+        onPress={() => navigation.navigate('FoodDetail')}
+        image={foodDummy8}
+      />
+      <ItemListFood
+        rating
+        onPress={() => navigation.navigate('FoodDetail')}
+        image={foodDummy9}
+      />
     </View>
   );
 };
@@ -33,14 +61,42 @@ const NewTaste = () => {
 const NewPopular = () => {
   const navigation = useNavigation();
   return (
-    <View style={{paddingTop: 8}}>
-      <ItemListFood onPress={() => navigation.navigate('FoodDetail')} image={foodDummy5} />
-      <ItemListFood onPress={() => navigation.navigate('FoodDetail')} image={foodDummy2} />
-      <ItemListFood onPress={() => navigation.navigate('FoodDetail')} image={foodDummy6} />
-      <ItemListFood onPress={() => navigation.navigate('FoodDetail')} image={foodDummy4} />
-      <ItemListFood onPress={() => navigation.navigate('FoodDetail')} image={foodDummy7} />
-      <ItemListFood onPress={() => navigation.navigate('FoodDetail')} image={foodDummy1} />
-      <ItemListFood onPress={() => navigation.navigate('FoodDetail')} image={foodDummy9} />
+    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+      <ItemListFood
+        rating
+        onPress={() => navigation.navigate('FoodDetail')}
+        image={foodDummy5}
+      />
+      <ItemListFood
+        rating
+        onPress={() => navigation.navigate('FoodDetail')}
+        image={foodDummy2}
+      />
+      <ItemListFood
+        rating
+        onPress={() => navigation.navigate('FoodDetail')}
+        image={foodDummy6}
+      />
+      <ItemListFood
+        rating
+        onPress={() => navigation.navigate('FoodDetail')}
+        image={foodDummy4}
+      />
+      <ItemListFood
+        rating
+        onPress={() => navigation.navigate('FoodDetail')}
+        image={foodDummy7}
+      />
+      <ItemListFood
+        rating
+        onPress={() => navigation.navigate('FoodDetail')}
+        image={foodDummy1}
+      />
+      <ItemListFood
+        rating
+        onPress={() => navigation.navigate('FoodDetail')}
+        image={foodDummy9}
+      />
     </View>
   );
 };
@@ -48,14 +104,42 @@ const NewPopular = () => {
 const NewRecommended = () => {
   const navigation = useNavigation();
   return (
-    <View style={{paddingTop: 8}}>
-      <ItemListFood onPress={() => navigation.navigate('FoodDetail')} image={foodDummy9} />
-      <ItemListFood onPress={() => navigation.navigate('FoodDetail')} image={foodDummy8} />
-      <ItemListFood onPress={() => navigation.navigate('FoodDetail')} image={foodDummy7} />
-      <ItemListFood onPress={() => navigation.navigate('FoodDetail')} image={foodDummy6} />
-      <ItemListFood onPress={() => navigation.navigate('FoodDetail')} image={foodDummy5} />
-      <ItemListFood onPress={() => navigation.navigate('FoodDetail')} image={foodDummy4} />
-      <ItemListFood onPress={() => navigation.navigate('FoodDetail')} image={foodDummy3} />
+    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+      <ItemListFood
+        rating
+        onPress={() => navigation.navigate('FoodDetail')}
+        image={foodDummy9}
+      />
+      <ItemListFood
+        rating
+        onPress={() => navigation.navigate('FoodDetail')}
+        image={foodDummy8}
+      />
+      <ItemListFood
+        rating
+        onPress={() => navigation.navigate('FoodDetail')}
+        image={foodDummy7}
+      />
+      <ItemListFood
+        rating
+        onPress={() => navigation.navigate('FoodDetail')}
+        image={foodDummy6}
+      />
+      <ItemListFood
+        rating
+        onPress={() => navigation.navigate('FoodDetail')}
+        image={foodDummy5}
+      />
+      <ItemListFood
+        rating
+        onPress={() => navigation.navigate('FoodDetail')}
+        image={foodDummy4}
+      />
+      <ItemListFood
+        rating
+        onPress={() => navigation.navigate('FoodDetail')}
+        image={foodDummy3}
+      />
     </View>
   );
 };
@@ -66,7 +150,13 @@ const renderTabBar = (props) => (
   <TabBar
     {...props}
     indicatorStyle={{backgroundColor: '#020202'}}
-    style={{backgroundColor: 'white', elevation: 0, shadowOpacity: 0, borderBottomColor: '#f2f2f2', borderBottomWidth: 1}}
+    style={{
+      backgroundColor: 'white',
+      elevation: 0,
+      shadowOpacity: 0,
+      borderBottomColor: '#f2f2f2',
+      borderBottomWidth: 1,
+    }}
     tabStyle={{width: 'auto'}}
     renderLabel={({route, focused, color}) => (
       <Text
@@ -102,7 +192,7 @@ const HomeTabSection = () => {
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={initialLayout}
-        style={{ backgroundColor: 'white' }}
+        style={{backgroundColor: 'white'}}
       />
     </View>
   );
