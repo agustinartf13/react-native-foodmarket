@@ -1,23 +1,31 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {ILSuccessOrder} from '../../assets';
-import { Button, Gap } from '../../components';
+import {Button, Gap} from '../../components';
 
-const SuccessOrder = () => {
+const SuccessOrder = ({navigation}) => {
   return (
     <View style={styles.page}>
       <ILSuccessOrder />
       <Text style={styles.title}>You’ve Made Order</Text>
-      <Gap height={6}/>
+      <Gap height={6} />
       <Text style={styles.subTitle}>Just stay at home while we are</Text>
       <Text style={styles.subTitle}>preparing your best foods</Text>
-      <Gap height={30}/>
+      <Gap height={30} />
       <View style={styles.buttonContainer}>
-        <Button label="Order Other Foods"/>
+        <Button
+          label="Order Other Foods"
+          onPress={() => navigation.navigate('MainApp')}
+        />
       </View>
-      <Gap height={12}/>
+      <Gap height={12} />
       <View style={styles.buttonContainer}>
-        <Button label="View My Order" color="#8d92a3" textColor="whitegit "/>
+        <Button
+          label="View My Order"
+          color="#8d92a3"
+          textColor="white"
+          onPress={() => navigation.replace('MainApp', {screen: 'Order'})}
+        />
       </View>
     </View>
   );
@@ -37,12 +45,12 @@ const styles = StyleSheet.create({
     color: '#020202',
   },
   subTitle: {
-      fontSize: 14,
-      fontFamily: 'Poppins-Light',
-      color: '#8d92a3',
+    fontSize: 14,
+    fontFamily: 'Poppins-Light',
+    color: '#8d92a3',
   },
   buttonContainer: {
-      width: '100%',
-      paddingHorizontal: 80,
-  }
+    width: '100%',
+    paddingHorizontal: 80,
+  },
 });
