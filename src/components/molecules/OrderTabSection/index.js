@@ -19,7 +19,7 @@ const InProgress = () => {
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
       <ItemListFood
         rating
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         image={foodDummy3}
         type="in-progress"
         items={3}
@@ -28,7 +28,7 @@ const InProgress = () => {
       />
       <ItemListFood
         rating
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         image={foodDummy4}
         type="in-progress"
         items={3}
@@ -37,7 +37,7 @@ const InProgress = () => {
       />
       <ItemListFood
         rating
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         image={foodDummy5}
         type="in-progress"
         items={3}
@@ -46,7 +46,7 @@ const InProgress = () => {
       />
       <ItemListFood
         rating
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         image={foodDummy6}
         type="in-progress"
         items={3}
@@ -55,7 +55,7 @@ const InProgress = () => {
       />
       <ItemListFood
         rating
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         image={foodDummy7}
         type="in-progress"
         items={3}
@@ -64,7 +64,7 @@ const InProgress = () => {
       />
       <ItemListFood
         rating
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         image={foodDummy8}
         type="in-progress"
         items={3}
@@ -73,7 +73,7 @@ const InProgress = () => {
       />
       <ItemListFood
         rating
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         image={foodDummy9}
         type="in-progress"
         items={3}
@@ -90,7 +90,7 @@ const PastOrder = () => {
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
       <ItemListFood
         rating
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         image={foodDummy9}
         type="past-order"
         items={2}
@@ -101,7 +101,7 @@ const PastOrder = () => {
       />
       <ItemListFood
         rating
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         image={foodDummy8}
         type="past-order"
         items={2}
@@ -111,7 +111,7 @@ const PastOrder = () => {
       />
       <ItemListFood
         rating
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         image={foodDummy7}
         type="past-order"
         items={2}
@@ -122,7 +122,7 @@ const PastOrder = () => {
       />
       <ItemListFood
         rating
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         image={foodDummy6}
         type="past-order"
         items={2}
@@ -132,7 +132,7 @@ const PastOrder = () => {
       />
       <ItemListFood
         rating
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         image={foodDummy5}
         type="past-order"
         items={2}
@@ -143,7 +143,7 @@ const PastOrder = () => {
       />
       <ItemListFood
         rating
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         image={foodDummy4}
         type="past-order"
         items={2}
@@ -153,7 +153,7 @@ const PastOrder = () => {
       />
       <ItemListFood
         rating
-        onPress={() => navigation.navigate('FoodDetail')}
+        onPress={() => navigation.navigate('OrderDetail')}
         image={foodDummy3}
         type="past-order"
         items={2}
