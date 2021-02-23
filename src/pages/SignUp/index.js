@@ -1,10 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {Button, Gap, Header, TextInput} from '../../components';
 
 const SignUp = ({navigation}) => {
   return (
-    <View style={styles.page}>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={styles.page}>
       <Header
         onBack
         title="Sign Up"
@@ -29,8 +30,10 @@ const SignUp = ({navigation}) => {
         <TextInput label="Password" placeholder="Type your password" />
         <Gap height={24} />
         <Button label="Continue" onPress={() => navigation.navigate('SignUpAddess')} />
+        <Gap height={24} />
       </View>
     </View>
+    </ScrollView>
   );
 };
 
