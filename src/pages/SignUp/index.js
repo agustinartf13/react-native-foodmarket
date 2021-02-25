@@ -1,38 +1,74 @@
 import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {Button, Gap, Header, TextInput} from '../../components';
+import {useSelector, useDispatch} from 'react-redux';
+import { useForm } from '../../utils';
 
 const SignUp = ({navigation}) => {
+  const globalState = useSelector((state) => state.globalReducer);
+  console.log('global: ', globalState);
+
+  const [form, setForm] = useForm({
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
+  });
+
+  const dispatch = useDispatch();
+
+  const onSubmit = () => {
+    console.log('form: ', form);
+    dispatch({type: 'SET_REGISTER', value: form});
+    navigation.navigate('SignUpAddess')
+  }
+
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1 }}>
       <View style={styles.page}>
-      <Header
-        onBack
-        title="Sign Up"
-        subTitle="Register and eat"
-        onPress={() => navigation.goBack()}
-      />
-      <View style={styles.container}>
-        <View style={styles.photo}>
-          <View style={styles.borderPhoto}>
-            <View style={styles.photoContainer}>
-              <Text style={styles.addPhoto}>Add Photo</Text>
+        <Header
+          onBack
+          title="Sign Up"
+          subTitle="Register and eat"
+          onPress={() => navigation.goBack()}
+        />
+        <View style={styles.container}>
+          <View style={styles.photo}>
+            <View style={styles.borderPhoto}>
+              <View style={styles.photoContainer}>
+                <Text style={styles.addPhoto}>Add Photo</Text>
+              </View>
             </View>
           </View>
+          <TextInput
+            label="Full Name"
+            placeholder="Type your full name"
+            value={form.name}
+            onChangeText={(value) => setForm('name', value)}
+          />
+          <Gap height={16} />
+          <TextInput
+            label="Email Address"
+            placeholder="Type your email address"
+            value={form.email}
+            onChangeText={(value) => setForm('email', value)}
+          />
+          <Gap height={16} />
+          <TextInput
+            label="Password"
+            placeholder="Type your password"
+            secureTextEntry
+            value={form.password}
+            onChangeText={(value) => setForm('password', value)}
+          />
+          <Gap height={24} />
+          <Button
+            label="Continue"
+            onPress={onSubmit}
+          />
+          <Gap height={24} />
         </View>
-        <TextInput label="Full Name" placeholder="Type your full name" />
-        <Gap height={16} />
-        <TextInput
-          label="Email Address"
-          placeholder="Type your email address"
-        />
-        <Gap height={16} />
-        <TextInput label="Password" placeholder="Type your password" />
-        <Gap height={24} />
-        <Button label="Continue" onPress={() => navigation.navigate('SignUpAddess')} />
-        <Gap height={24} />
       </View>
-    </View>
     </ScrollView>
   );
 };

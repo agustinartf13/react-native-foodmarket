@@ -1,7 +1,8 @@
+import Axios from 'axios';
 import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Button, Gap, Header, TextInput} from '../../components';
-import { useForm } from '../../utils';
+import {useForm} from '../../utils';
 
 const index = ({navigation}) => {
   // const [email, setEmail] = useState('');
@@ -9,12 +10,19 @@ const index = ({navigation}) => {
 
   const [form, setForm] = useForm({
     email: '',
-    password: ''
+    password: '',
   });
 
   const onSubmit = () => {
     console.log('form: ', form);
-  }
+    Axios.post('http://foodmarket-backend.buildwithangga.id/api/login', form)
+      .then((res) => {
+        console.log('success', res);
+      })
+      .catch((error) => {
+        console.log('error', error);
+      });
+  };
 
   return (
     <View style={styles.page}>
@@ -41,7 +49,7 @@ const index = ({navigation}) => {
           label="Create New Account"
           color="#8d92a3"
           textColor="white"
-          onPress={() => navigation.navigate('SignUp') }
+          onPress={() => navigation.navigate('SignUp')}
         />
       </View>
     </View>
