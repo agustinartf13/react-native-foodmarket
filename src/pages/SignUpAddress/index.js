@@ -1,10 +1,9 @@
-import React from 'react';
 import Axios from 'axios';
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
-import {Button, Gap, Header, Select, TextInput} from '../../components';
-import {useSelector, useDispatch} from 'react-redux';
-import {useForm} from '../../utils';
-import {showMessage, hideMessage} from 'react-native-flash-message';
+import React from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, Gap, Header, Select, TextInput } from '../../components';
+import { showMessage, useForm } from '../../utils';
 
 const SignUpAddress = ({navigation}) => {
   const [form, setForm] = useForm({
@@ -31,23 +30,17 @@ const SignUpAddress = ({navigation}) => {
       .then((res) => {
         console.log('success', res.data);
         dispatch({type: 'SET_LOADING', value: false});
-        showToast('Success Sign Up', 'success');
+        showMessage('Success Sign Up', 'success');
         navigation.replace('SuccessSignUp');
       })
       .catch((err) => {
         dispatch({type: 'SET_LOADING', value: false});
         console.log('error', err?.response?.data?.message);
-        showToast('Error Sign Up');
+        showMessage('Error Sign Up');
       });
   };
 
-  const showToast = (message, type) => {
-    showMessage({
-      message,
-      type: type === 'success' ? 'success' : 'danger',
-      backgroundColor: type === 'success' ? '#1abc9c' : '#d9435e',
-    });
-  };
+ 
 
   return (
     <ScrollView

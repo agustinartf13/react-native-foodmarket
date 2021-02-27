@@ -10,6 +10,8 @@ target 'foodMarket' do
 
   pod 'RNSentry', :path => '../node_modules/@sentry/react-native'
 
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
   target 'foodMarketTests' do
     inherit! :complete
     # Pods for testing

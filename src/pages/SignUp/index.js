@@ -1,12 +1,22 @@
-import React from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Image,
+} from 'react-native';
 import {Button, Gap, Header, TextInput} from '../../components';
 import {useSelector, useDispatch} from 'react-redux';
-import { useForm } from '../../utils';
+import {showMessage, useForm} from '../../utils';
+import * as ImagePicker from 'react-native-image-picker';
 
 const SignUp = ({navigation}) => {
   const globalState = useSelector((state) => state.globalReducer);
   console.log('global: ', globalState);
+
+  const [photo, setPhoto] = useState('');
 
   const [form, setForm] = useForm({
     name: '',
@@ -20,11 +30,36 @@ const SignUp = ({navigation}) => {
   const onSubmit = () => {
     console.log('form: ', form);
     dispatch({type: 'SET_REGISTER', value: form});
-    navigation.navigate('SignUpAddess')
-  }
+    navigation.navigate('SignUpAddess');
+  };
+
+  const addPhotoGallery = () => {
+    ImagePicker.launchImageLibrary({
+      quality: 0.5,
+      maxWidth: 200,
+      maxHeight: 200
+    }, (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+        showMessage('Anda tidak memilih photo');
+      } else {
+        const source = {uri: response.uri};
+        const dataImage = {
+          uri: response.uri,
+          type: response.type,
+          name: response.fileName,
+        };
+        setPhoto(source);
+      }
+    });
+  };
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1 }}>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{flexGrow: 1}}>
       <View style={styles.page}>
         <Header
           onBack
@@ -34,11 +69,17 @@ const SignUp = ({navigation}) => {
         />
         <View style={styles.container}>
           <View style={styles.photo}>
-            <View style={styles.borderPhoto}>
-              <View style={styles.photoContainer}>
-                <Text style={styles.addPhoto}>Add Photo</Text>
+            <TouchableOpacity onPress={addPhotoGallery}>
+              <View style={styles.borderPhoto}>
+                {photo ? (
+                  <Image source={photo} style={styles.photoContainer} />
+                ) : (
+                  <View style={styles.photoContainer}>
+                    <Text style={styles.addPhoto}>Add Photo</Text>
+                  </View>
+                )}
               </View>
-            </View>
+            </TouchableOpacity>
           </View>
           <TextInput
             label="Full Name"
@@ -62,10 +103,7 @@ const SignUp = ({navigation}) => {
             onChangeText={(value) => setForm('password', value)}
           />
           <Gap height={24} />
-          <Button
-            label="Continue"
-            onPress={onSubmit}
-          />
+          <Button label="Continue" onPress={onSubmit} />
           <Gap height={24} />
         </View>
       </View>
@@ -102,7 +140,9 @@ const styles = StyleSheet.create({
     height: 90,
     borderRadius: 90 / 2,
     backgroundColor: '#f0f0f0',
-    padding: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+    resizeMode: 'cover'
   },
   borderPhoto: {
     borderWidth: 1,
