@@ -1,9 +1,9 @@
 import Axios from 'axios';
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { Button, Gap, Header, Select, TextInput } from '../../components';
-import { showMessage, useForm } from '../../utils';
+import {ScrollView, StyleSheet, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {Button, Gap, Header, Select, TextInput} from '../../components';
+import {showMessage, useForm} from '../../utils';
 
 const SignUpAddress = ({navigation}) => {
   const [form, setForm] = useForm({
@@ -13,10 +13,10 @@ const SignUpAddress = ({navigation}) => {
     city: 'Bandung',
   });
 
-  const registerReducer = useSelector((state) => state.registerReducer);
   console.log('register: ', registerReducer);
 
   const dispatch = useDispatch();
+  const {registerReducer, photoReducer} = useSelector((state) => state);
 
   const onSubmit = () => {
     console.log('form: ', form);
@@ -28,7 +28,28 @@ const SignUpAddress = ({navigation}) => {
     dispatch({type: 'SET_LOADING', value: true});
     Axios.post('http://foodmarket-backend.buildwithangga.id/api/register', data)
       .then((res) => {
-        console.log('success', res.data);
+        console.log('data success: ', res.data);
+        if (photoReducer.isUploadPhoto) {
+          const photoForUpload = new FormData();
+          photoForUpload.append('file', photoReducer);
+
+          Axios.post(
+            'http://foodmarket-backend.buildwithangga.id/api/user/photo',
+            photoForUpload,
+            {
+              headers: {
+                Authorization: `${res.data.data.token_type} ${res.data.data.access_token}`,
+                'Content-Type': 'multipart/form-data',
+              },
+            },
+          )
+            .then((resUpload) => {
+              console.log('success: ', resUpload);
+            })
+            .catch((err) => {
+              showMessage('Upload photo tidak berhasil', err);
+            });
+        }
         dispatch({type: 'SET_LOADING', value: false});
         showMessage('Success Sign Up', 'success');
         navigation.replace('SuccessSignUp');
@@ -39,8 +60,6 @@ const SignUpAddress = ({navigation}) => {
         showMessage('Error Sign Up');
       });
   };
-
- 
 
   return (
     <ScrollView

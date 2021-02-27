@@ -41,7 +41,7 @@ const SignUp = ({navigation}) => {
     }, (response) => {
       console.log('Response = ', response);
 
-      if (response.didCancel) {
+      if (response.didCancel || response.error) {
         console.log('User cancelled image picker');
         showMessage('Anda tidak memilih photo');
       } else {
@@ -52,6 +52,8 @@ const SignUp = ({navigation}) => {
           name: response.fileName,
         };
         setPhoto(source);
+        dispatch({type: 'SET_PHOTO', value: dataImage});
+        dispatch({type: 'SET_UPLOAD_STATUS', value: true});
       }
     });
   };
