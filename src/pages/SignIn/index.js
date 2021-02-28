@@ -1,8 +1,9 @@
-import Axios from 'axios';
-import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {useDispatch} from 'react-redux';
 import {Button, Gap, Header, TextInput} from '../../components';
-import {useForm} from '../../utils';
+import {signInAction} from '../../redux/action';
+import {getData, useForm} from '../../utils';
 
 const index = ({navigation}) => {
   // const [email, setEmail] = useState('');
@@ -13,15 +14,10 @@ const index = ({navigation}) => {
     password: '',
   });
 
+  const dispatch = useDispatch();
+  
   const onSubmit = () => {
-    console.log('form: ', form);
-    Axios.post('http://foodmarket-backend.buildwithangga.id/api/login', form)
-      .then((res) => {
-        console.log('success', res);
-      })
-      .catch((error) => {
-        console.log('error', error);
-      });
+    dispatch(signInAction(form, navigation));
   };
 
   return (

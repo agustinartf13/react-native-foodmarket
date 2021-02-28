@@ -8,12 +8,17 @@ const SuccessSignUp = ({navigation}) => {
     <View style={styles.page}>
       <ILSuccessSignUp />
       <Text style={styles.title}>Yeay! Complated</Text>
-      <Gap height={6}/>
+      <Gap height={6} />
       <Text style={styles.subTitle}>Now you are able to order</Text>
       <Text style={styles.subTitle}>some foods as a self-reward</Text>
       <Gap height={30} />
       <View style={styles.buttonContainer}>
-        <Button label="Find Food" onPress={() => navigation.replace('MainApp')} />
+        <Button
+          label="Find Food"
+          onPress={() =>
+            navigation.reset({index: 0, routes: [{name: 'MainApp'}]})
+          }
+        />
       </View>
     </View>
   );
@@ -40,5 +45,5 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: '100%',
     paddingHorizontal: 80,
-  }
+  },
 });
