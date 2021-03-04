@@ -1,187 +1,91 @@
-import React from 'react';
-import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
-import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
-import {
-  foodDummy1,
-  foodDummy2,
-  foodDummy3,
-  foodDummy4,
-  foodDummy5,
-  foodDummy6,
-  foodDummy7,
-  foodDummy8,
-  foodDummy9,
-} from '../../../assets';
-import ItemListFood from '../ItemListFood';
 import {useNavigation} from '@react-navigation/native';
+import React, {useEffect} from 'react';
+import {Dimensions, StyleSheet, Text, View} from 'react-native';
+import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
+import {useDispatch, useSelector} from 'react-redux';
+import {getFoodDataByTypes} from '../../../redux/action';
+import ItemListFood from '../ItemListFood';
 
 const NewTaste = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {newTaste} = useSelector((state) => state.homeReducer);
+
+  useEffect(() => {
+    dispatch(getFoodDataByTypes('new_food'));
+  }, []);
+
   return (
-    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-      <ItemListFood
-        rating={4}
-        onPress={() => navigation.navigate('FoodDetail')}
-        image={foodDummy3}
-        name="Sop Bumil"
-        price="2.000.000"
-      />
-      <ItemListFood
-        rating={4}
-        onPress={() => navigation.navigate('FoodDetail')}
-        image={foodDummy4}
-        name="Sop Bumil"
-        price="2.000.000"
-      />
-      <ItemListFood
-        rating={4}
-        onPress={() => navigation.navigate('FoodDetail')}
-        image={foodDummy5}
-        name="Sop Bumil"
-        price="2.000.000"
-      />
-      <ItemListFood
-        rating={4}
-        onPress={() => navigation.navigate('FoodDetail')}
-        image={foodDummy6}
-        name="Sop Bumil"
-        price="2.000.000"
-      />
-      <ItemListFood
-        rating={4}
-        onPress={() => navigation.navigate('FoodDetail')}
-        image={foodDummy7}
-        name="Sop Bumil"
-        price="2.000.000"
-      />
-      <ItemListFood
-        rating={4}
-        onPress={() => navigation.navigate('FoodDetail')}
-        image={foodDummy8}
-        name="Sop Bumil"
-        price="2.000.000"
-      />
-      <ItemListFood
-        rating={4}
-        onPress={() => navigation.navigate('FoodDetail')}
-        image={foodDummy9}
-        name="Sop Bumil"
-        price="2.000.000"
-      />
+    <View style={{paddingTop: 8, paddingHorizontal: 24, backgroundColor: ''}}>
+      {newTaste.map((item) => {
+        return (
+          <ItemListFood
+            key={item.id}
+            type="product"
+            name={item.name}
+            price={item.price}
+            rating={item.rate}
+            image={{uri: item.picturePath}}
+            onPress={() => navigation.navigate('FoodDetail', item)}
+          />
+        );
+      })}
     </View>
   );
 };
 
 const NewPopular = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {popular} = useSelector((state) => state.homeReducer);
+
+  useEffect(() => {
+    dispatch(getFoodDataByTypes('popular'));
+  }, []);
+
   return (
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-      <ItemListFood
-        rating={4}
-        onPress={() => navigation.navigate('FoodDetail')}
-        image={foodDummy5}
-        name="Sop Bumil"
-        price="2.000.000"
-      />
-      <ItemListFood
-        rating={4}
-        onPress={() => navigation.navigate('FoodDetail')}
-        image={foodDummy2}
-        name="Sop Bumil"
-        price="2.000.000"
-      />
-      <ItemListFood
-        rating={4}
-        onPress={() => navigation.navigate('FoodDetail')}
-        image={foodDummy6}
-        name="Sop Bumil"
-        price="2.000.000"
-      />
-      <ItemListFood
-        rating={4}
-        onPress={() => navigation.navigate('FoodDetail')}
-        image={foodDummy4}
-        name="Sop Bumil"
-        price="2.000.000"
-      />
-      <ItemListFood
-        rating={4}
-        onPress={() => navigation.navigate('FoodDetail')}
-        image={foodDummy7}
-        name="Sop Bumil"
-        price="2.000.000"
-      />
-      <ItemListFood
-        rating={4}
-        onPress={() => navigation.navigate('FoodDetail')}
-        image={foodDummy1}
-        name="Sop Bumil"
-        price="2.000.000"
-      />
-      <ItemListFood
-        rating={4}
-        onPress={() => navigation.navigate('FoodDetail')}
-        image={foodDummy9}
-        name="Sop Bumil"
-        price="2.000.000"
-      />
+      {popular.map((item) => {
+        return (
+          <ItemListFood
+            key={item.id}
+            type="product"
+            rating={item.rate}
+            onPress={() => navigation.navigate('FoodDetail')}
+            image={{uri: item.picturePath}}
+            name={item.name}
+            price={item.price}
+          />
+        );
+      })}
     </View>
   );
 };
 
 const NewRecommended = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {recommended} = useSelector((state) => state.homeReducer);
+
+  useEffect(() => {
+    dispatch(getFoodDataByTypes('recommended'));
+  }, []);
+
   return (
     <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-      <ItemListFood
-        rating={4}
-        onPress={() => navigation.navigate('FoodDetail')}
-        image={foodDummy9}
-        name="Sop Bumil"
-        price="2.000.000"
-      />
-      <ItemListFood
-        rating={4}
-        onPress={() => navigation.navigate('FoodDetail')}
-        image={foodDummy8}
-        name="Sop Bumil"
-        price="2.000.000"
-      />
-      <ItemListFood
-        rating={4}
-        onPress={() => navigation.navigate('FoodDetail')}
-        image={foodDummy7}
-        name="Sop Bumil"
-        price="2.000.000"
-      />
-      <ItemListFood
-        rating={4}
-        onPress={() => navigation.navigate('FoodDetail')}
-        image={foodDummy6}
-        name="Sop Bumil"
-        price="2.000.000"
-      />
-      <ItemListFood
-        rating={4}
-        onPress={() => navigation.navigate('FoodDetail')}
-        image={foodDummy5}
-        name="Sop Bumil"
-        price="2.000.000"
-      />
-      <ItemListFood
-        rating={4}
-        onPress={() => navigation.navigate('FoodDetail')}
-        image={foodDummy4}
-        name="Sop Bumil"
-        price="2.000.000"
-      />
-      <ItemListFood
-        rating={4}
-        onPress={() => navigation.navigate('FoodDetail')}
-        image={foodDummy3}
-        name="Sop Bumil"
-        price="2.000.000"
-      />
+      {recommended.map((item) => {
+        return (
+          <ItemListFood
+            key={item.id}
+            type="product"
+            rating={item.rate}
+            onPress={() => navigation.navigate('FoodDetail')}
+            image={{uri: item.picturePath}}
+            name={item.name}
+            price={item.price}
+          />
+        );
+      })}
     </View>
   );
 };

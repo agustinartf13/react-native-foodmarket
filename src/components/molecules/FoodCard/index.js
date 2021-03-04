@@ -8,7 +8,7 @@ const FoodCard = ({image, name, rating}) => {
       <Image style={styles.foodPhoto} source={image} />
       <View style={styles.contentContainer}>
         <Text style={styles.text}>{name}</Text>
-        <Rating number={rating} />
+        <Rating rating={rating} />
       </View>
     </View>
   );

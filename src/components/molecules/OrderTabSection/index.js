@@ -26,60 +26,7 @@ const InProgress = () => {
         price="2.000.000"
         name="Sop Bumil"
       />
-      <ItemListFood
-        rating
-        onPress={() => navigation.navigate('OrderDetail')}
-        image={foodDummy4}
-        type="in-progress"
-        items={3}
-        price="2.000.000"
-        name="Sop Bumil"
-      />
-      <ItemListFood
-        rating
-        onPress={() => navigation.navigate('OrderDetail')}
-        image={foodDummy5}
-        type="in-progress"
-        items={3}
-        price="2.000.000"
-        name="Sop Bumil"
-      />
-      <ItemListFood
-        rating
-        onPress={() => navigation.navigate('OrderDetail')}
-        image={foodDummy6}
-        type="in-progress"
-        items={3}
-        price="2.000.000"
-        name="Sop Bumil"
-      />
-      <ItemListFood
-        rating
-        onPress={() => navigation.navigate('OrderDetail')}
-        image={foodDummy7}
-        type="in-progress"
-        items={3}
-        price="2.000.000"
-        name="Sop Bumil"
-      />
-      <ItemListFood
-        rating
-        onPress={() => navigation.navigate('OrderDetail')}
-        image={foodDummy8}
-        type="in-progress"
-        items={3}
-        price="2.000.000"
-        name="Sop Bumil"
-      />
-      <ItemListFood
-        rating
-        onPress={() => navigation.navigate('OrderDetail')}
-        image={foodDummy9}
-        type="in-progress"
-        items={3}
-        price="2.000.000"
-        name="Sop Bumil"
-      />
+      
     </View>
   );
 };

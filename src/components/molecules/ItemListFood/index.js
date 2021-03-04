@@ -1,20 +1,30 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import {foodDummy3} from '../../../assets';
+import Number from '../Number';
 import Rating from '../Rating';
 
-const ItemListFood = ({image, onPress, items, rating, price, type, name, date, status}) => {
+const ItemListFood = ({
+  image,
+  onPress,
+  items,
+  price,
+  rating,
+  type,
+  name,
+  date,
+  status,
+}) => {
   const renderContent = () => {
     switch (type) {
       case 'product':
         // list product home page
         return (
           <>
-            <View style={styles.content}>
+            <View style={styles.content} >
               <Text style={styles.title}>{name}</Text>
-              <Text style={styles.price}>IDR {price}</Text>
+              <Number number={price} style={styles.price} />
             </View>
-            <Rating rating={rating} />
+            <Rating number={rating} />
           </>
         );
       case 'order-summary':
@@ -113,7 +123,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
   dateContainer: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   date: {
     fontFamily: 'Poppins-Regular',
@@ -124,5 +134,5 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     fontSize: 10,
     color: '#d9435e',
-  }
+  },
 });

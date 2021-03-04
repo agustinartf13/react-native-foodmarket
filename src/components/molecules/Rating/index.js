@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {IcStarOff} from '../../../assets';
 import {IcStarOn} from '../../../assets';
+import Number from '../Number';
 
 const Rating = ({number}) => {
   const renderStart = () => {
@@ -19,7 +20,7 @@ const Rating = ({number}) => {
   return (
     <View style={styles.rattingContainer}>
       <View style={styles.starContainer}>{renderStart()}</View>
-      <Text>{number}</Text>
+      <Number number={number} type="decimal" style={styles.numberRating} />
     </View>
   );
 };
@@ -35,4 +36,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginRight: 4,
   },
+  numberRating: {fontSize: 12, fontFamily: 'Poppins-Regular', color: '#8D92A3'},
 });

@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {foodDummy1, foodDummy2, foodDummy4, foodDummy5} from '../../assets';
 import {FoodCard, Gap, HomeProfile, HomeTabSection} from '../../components';
 import {getFoodData} from '../../redux/action';
 
@@ -24,6 +23,7 @@ const Home = () => {
               {food.map((itemFood) => {
                 return (
                   <FoodCard
+                    key={itemFood.id}
                     image={{uri: itemFood.picturePath}}
                     name={itemFood.name}
                     rating={itemFood.rate}
@@ -43,8 +43,9 @@ export default Home;
 
 const styles = StyleSheet.create({
   page: {
-    backgroundColor: 'white',
     flex: 1,
+    backgroundColor: 'white',
+    
   },
   profileContainer: {
     flexDirection: 'row',
