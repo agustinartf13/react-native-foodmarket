@@ -1,14 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {ImageBackground, StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {foodDummy1, IcBackWhite} from '../../assets';
-import {Button, Counter, Rating} from '../../components';
+import {Button, Counter, Number, Rating} from '../../components';
 
-const FoodDetail = ({navigation}) => {
+const FoodDetail = ({navigation, route}) => {
+  const {
+    name,
+    picturePath,
+    description,
+    ingredients,
+    rate,
+    price,
+  } = route.params;
+
+  const [totalItem, setTotalItem] = useState(1);
+
+  const onCounterChange = (value) => {
+    console.log('counter: ', value);
+    setTotalItem(value);
+  };
+
   return (
     <View style={styles.page}>
-      <ImageBackground source={foodDummy1} style={styles.cover}>
-        <TouchableOpacity style={styles.back} onPress={() => navigation.goBack()} activeOpacity={0.7}>
+      <ImageBackground source={{uri: picturePath}} style={styles.cover}>
+        <TouchableOpacity
+          style={styles.back}
+          onPress={() => navigation.goBack()}
+          activeOpacity={0.7}>
           <IcBackWhite />
         </TouchableOpacity>
       </ImageBackground>
@@ -16,26 +35,25 @@ const FoodDetail = ({navigation}) => {
         <View style={styles.mainContent}>
           <View style={styles.productContainer}>
             <View>
-              <Text style={styles.title}>Cherry Healty</Text>
-              <Rating />
+              <Text style={styles.title}>{name}</Text>
+              <Rating number={rate} />
             </View>
-            <Counter/>
+            <Counter onValueChange={onCounterChange} />
           </View>
-          <Text style={styles.desc}>
-            Makanan khas Bandung yang cukup sering dipesan oleh anak muda dengan
-            pola makan yang cukup tinggi dengan mengutamakan diet yang sehat dan
-            teratur.
-          </Text>
+          <Text style={styles.desc}>{description}</Text>
           <Text style={styles.label}>Ingredients:</Text>
-          <Text style={styles.desc}>Seledri, telur, blueberry, madu.</Text>
+          <Text style={styles.desc}>{ingredients}</Text>
         </View>
         <View style={styles.footer}>
           <View style={styles.priceContainer}>
             <Text style={styles.labelTotal}>Total Price</Text>
-            <Text style={styles.priceTotal}>IDR 12.289.000</Text>
+            <Number style={styles.priceTotal} number={totalItem * price} />
           </View>
           <View style={styles.button}>
-            <Button label="Order Now" onPress={() => navigation.navigate("OrderSummary")} />
+            <Button
+              label="Order Now"
+              onPress={() => navigation.navigate('OrderSummary')}
+            />
           </View>
         </View>
       </View>
@@ -108,5 +126,5 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   labelTotal: {fontFamily: 'Poppins-Regular', fontSize: 13, color: '#8092a3'},
-  priceTotal: {fontFamily: 'Poppins-Regular', fontSize: 18, color: '#020202'}
+  priceTotal: {fontFamily: 'Poppins-Regular', fontSize: 18, color: '#020202'},
 });

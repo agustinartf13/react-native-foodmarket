@@ -55,6 +55,7 @@ const NewPopular = () => {
             image={{uri: item.picturePath}}
             name={item.name}
             price={item.price}
+            onPress={() => navigation.navigate('FoodDetail', item)}
           />
         );
       })}
@@ -83,6 +84,7 @@ const NewRecommended = () => {
             image={{uri: item.picturePath}}
             name={item.name}
             price={item.price}
+            onPress={() => navigation.navigate('FoodDetail', item)}
           />
         );
       })}

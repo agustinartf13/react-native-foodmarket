@@ -1,16 +1,19 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import Rating from '../Rating';
 
-const FoodCard = ({image, name, rating}) => {
+const FoodCard = ({image, name, rating, onPress}) => {
   return (
-    <View style={styles.container}>
-      <Image style={styles.foodPhoto} source={image} />
-      <View style={styles.contentContainer}>
-        <Text style={styles.text}>{name}</Text>
-        <Rating rating={rating} />
+    <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
+      <View style={styles.container}>
+        <Image style={styles.foodPhoto} source={image} />
+        <View style={styles.contentContainer}>
+          <Text style={styles.text}>{name}</Text>
+          <Rating number={rating} />
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
