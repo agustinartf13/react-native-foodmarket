@@ -3,7 +3,9 @@ import {StyleSheet, Text, View} from 'react-native';
 import {foodDummy1} from '../../assets';
 import {Button, Gap, Header, ItemListFood, ItemValue} from '../../components';
 
-const OrderSummary = ({navigation}) => {
+const OrderSummary = ({navigation, route}) => {
+  const {item, transaction, userProfile} = route.params;
+
   return (
     <View style={styles.page}>
       <Header
@@ -14,23 +16,37 @@ const OrderSummary = ({navigation}) => {
       />
       <View style={styles.content}>
         <Text style={styles.label}>Item Ordered</Text>
-        <ItemListFood image={foodDummy1} type="order-summary" name="Sop Bumil" price="2.000.000" items={14} />
+        <ItemListFood
+          image={{uri: item.picturePath}}
+          type="order-summary"
+          name={item.name}
+          price={item.price}
+          items={transaction.totalItem}
+        />
         <Text style={styles.label}>Details Transaction</Text>
-        <ItemValue label="Cherry Healty" value="IDR 18.390.000" />
-        <ItemValue label="Driver" value="IDR 50.000" />
-        <ItemValue label="Tax 10%" value="IDR 1.800.390" />
-        <ItemValue label="Total Price" value="IDR 390.803.000" valueColor='#1abc9c' />
+        <ItemValue label={item.name} value={item.total} type="currency" />
+        <ItemValue label="Driver" value={transaction.driver} type="currency" />
+        <ItemValue label="Tax 10%" value={transaction.tax} type="currency" />
+        <ItemValue
+          label="Total Price"
+          value={transaction.total}
+          valueColor="#1abc9c"
+          type="currency"
+        />
       </View>
       <View style={styles.content}>
         <Text style={styles.label}>Deliver to:</Text>
-        <ItemValue label="Name" value="Agustina Saputra" />
-        <ItemValue label="Phone No." value="0821 4664 0882" />
-        <ItemValue label="Address" value="jln Yeh Gangga" />
-        <ItemValue label="House No." value="Permai No. 13" />
-        <ItemValue label="City" value="Tabanan" />
+        <ItemValue label="Name" value={userProfile.name} />
+        <ItemValue label="Phone No." value={userProfile.phoneNumber} />
+        <ItemValue label="Address" value={userProfile.address} />
+        <ItemValue label="House No." value={userProfile.houseNumber} />
+        <ItemValue label="City" value={userProfile.city} />
       </View>
       <View style={styles.btnContainer}>
-        <Button label="Checkout Now" onPress={() => navigation.replace('SuccessOrder')} />
+        <Button
+          label="Checkout Now"
+          onPress={() => navigation.replace('SuccessOrder')}
+        />
       </View>
     </View>
   );

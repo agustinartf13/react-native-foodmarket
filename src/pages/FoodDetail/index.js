@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {ImageBackground, StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {foodDummy1, IcBackWhite} from '../../assets';
 import {Button, Counter, Number, Rating} from '../../components';
+import {getData} from '../../utils';
 
 const FoodDetail = ({navigation, route}) => {
   const {
@@ -15,10 +16,41 @@ const FoodDetail = ({navigation, route}) => {
   } = route.params;
 
   const [totalItem, setTotalItem] = useState(1);
+  const [userProfile, setUserProfile] = useState({});
+
+  useEffect(() => {
+    getData('userProfile').then((res) => {
+      setUserProfile(res);
+    });
+  }, []);
 
   const onCounterChange = (value) => {
     console.log('counter: ', value);
     setTotalItem(value);
+  };
+
+  const onOrder = () => {
+    const totalPrice = totalItem * price;
+    const driver = 50000;
+    const tax = (10 / 100) * totalPrice;
+    const total = totalPrice + driver + tax;
+    const data = {
+      item: {
+        name: name,
+        price: price,
+        picturePath: picturePath,
+      },
+      transaction: {
+        totalItem: totalItem,
+        totalPrice: totalItem * price,
+        driver: driver,
+        tax: tax,
+        total: total,
+      },
+      userProfile,
+    };
+    // console.log('data for checkout', data)
+    navigation.navigate('OrderSummary', data);
   };
 
   return (
@@ -50,10 +82,7 @@ const FoodDetail = ({navigation, route}) => {
             <Number style={styles.priceTotal} number={totalItem * price} />
           </View>
           <View style={styles.button}>
-            <Button
-              label="Order Now"
-              onPress={() => navigation.navigate('OrderSummary')}
-            />
+            <Button label="Order Now" onPress={onOrder} />
           </View>
         </View>
       </View>
