@@ -1,20 +1,29 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {ProfileDummy} from '../../assets';
 import {ProfileTabSection} from '../../components/molecules';
+import {getData} from '../../utils';
 
 const Profile = () => {
+  const [userProfile, setUserProfile] = useState({});
+  useEffect(() => {
+    getData('userProfile').then((res) => {
+      setUserProfile(res);
+    });
+  }, []);
   return (
     <View style={styles.page}>
       <View style={styles.bioContent}>
         <View style={styles.photo}>
           <View style={styles.borderPhoto}>
-            <Image style={styles.photoContainer} source={ProfileDummy} />
+            <Image
+              style={styles.photoContainer}
+              source={{uri: userProfile.profile_photo_url}}
+            />
           </View>
         </View>
         <View style={styles.bio}>
-          <Text style={styles.name}>Agustina Saputra</Text>
-          <Text style={styles.email}>agustina@gmail.com</Text>
+          <Text style={styles.name}>{userProfile.name}</Text>
+          <Text style={styles.email}>{userProfile.email}</Text>
         </View>
       </View>
       <View style={styles.content}>
@@ -29,7 +38,7 @@ export default Profile;
 const styles = StyleSheet.create({
   page: {flex: 1},
   bioContent: {backgroundColor: 'white'},
-  bio: { paddingBottom: 24},
+  bio: {paddingBottom: 24},
   photo: {
     alignItems: 'center',
     marginTop: 26,
@@ -67,6 +76,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     color: '#020202',
     textAlign: 'center',
+    textTransform: 'capitalize',
   },
   email: {
     fontSize: 13,

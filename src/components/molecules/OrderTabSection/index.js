@@ -1,115 +1,73 @@
-import React from 'react';
-import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
-import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
-import {
-  foodDummy3,
-  foodDummy4,
-  foodDummy5,
-  foodDummy6,
-  foodDummy7,
-  foodDummy8,
-  foodDummy9,
-} from '../../../assets';
-import ItemListFood from '../ItemListFood';
 import {useNavigation} from '@react-navigation/native';
+import React, {useEffect} from 'react';
+import {Dimensions, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
+import {useDispatch, useSelector} from 'react-redux';
+import {getInProgress, getPastOrders} from '../../../redux/action';
+import ItemListFood from '../ItemListFood';
 
 const InProgress = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {inProgress} = useSelector((state) => state.orderReducer);
+
+  useEffect(() => {
+    dispatch(getInProgress());
+  }, []);
+
+  console.log('get in progress: ', inProgress);
+
   return (
-    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-      <ItemListFood
-        rating
-        onPress={() => navigation.navigate('OrderDetail')}
-        image={foodDummy3}
-        type="in-progress"
-        items={3}
-        price="2.000.000"
-        name="Sop Bumil"
-      />
-      
-    </View>
+    <ScrollView>
+      <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+        {inProgress.map((order) => {
+          return (
+            <ItemListFood
+              key={order.id}
+              onPress={() => navigation.navigate('OrderDetail', order)}
+              image={{uri: order.food.picturePath}}
+              type="in-progress"
+              items={order.quantity}
+              price={order.total}
+              name={order.food.name}
+            />
+          );
+        })}
+      </View>
+    </ScrollView>
   );
 };
 
 const PastOrder = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {pastOrders} = useSelector((state) => state.orderReducer);
+
+  useEffect(() => {
+    dispatch(getPastOrders());
+  }, []);
+
+  console.log('get post progress: ', pastOrders);
   return (
-    <View style={{paddingTop: 8, paddingHorizontal: 24}}>
-      <ItemListFood
-        rating
-        onPress={() => navigation.navigate('OrderDetail')}
-        image={foodDummy9}
-        type="past-order"
-        items={2}
-        price="300.000"
-        name="Sop Bumil"
-        date="12 June, 14:00"
-        status="Cancelled"
-      />
-      <ItemListFood
-        rating
-        onPress={() => navigation.navigate('OrderDetail')}
-        image={foodDummy8}
-        type="past-order"
-        items={2}
-        price="300.000"
-        name="Sop Bumil"
-        date="12 June, 14:00"
-      />
-      <ItemListFood
-        rating
-        onPress={() => navigation.navigate('OrderDetail')}
-        image={foodDummy7}
-        type="past-order"
-        items={2}
-        price="300.000"
-        name="Sop Bumil"
-        date="12 June, 14:00"
-        status="Cancelled"
-      />
-      <ItemListFood
-        rating
-        onPress={() => navigation.navigate('OrderDetail')}
-        image={foodDummy6}
-        type="past-order"
-        items={2}
-        price="300.000"
-        name="Sop Bumil"
-        date="12 June, 14:00"
-      />
-      <ItemListFood
-        rating
-        onPress={() => navigation.navigate('OrderDetail')}
-        image={foodDummy5}
-        type="past-order"
-        items={2}
-        price="300.000"
-        name="Sop Bumil"
-        date="12 June, 14:00"
-        status="Cancelled"
-      />
-      <ItemListFood
-        rating
-        onPress={() => navigation.navigate('OrderDetail')}
-        image={foodDummy4}
-        type="past-order"
-        items={2}
-        price="300.000"
-        name="Sop Bumil"
-        date="12 June, 14:00"
-      />
-      <ItemListFood
-        rating
-        onPress={() => navigation.navigate('OrderDetail')}
-        image={foodDummy3}
-        type="past-order"
-        items={2}
-        price="300.000"
-        name="Sop Bumil"
-        date="12 June, 14:00"
-        status="Cancelled"
-      />
-    </View>
+    <ScrollView>
+      <View style={{paddingTop: 8, paddingHorizontal: 24}}>
+        {pastOrders.map((order) => {
+          return (
+            <ItemListFood
+              key={order.id}
+              image={{uri: order.food.picturePath}}
+              onPress={() => navigation.navigate('OrderDetail', order)}
+              type="past-order"
+              items={order.quantity}
+              price={order.total}
+              name={order.food.name}
+              date={order.created_at}
+              status={order.status}
+            />
+          );
+        })}
+      </View>
+    </ScrollView>
   );
 };
 

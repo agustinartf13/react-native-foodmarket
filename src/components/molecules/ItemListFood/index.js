@@ -20,7 +20,7 @@ const ItemListFood = ({
         // list product home page
         return (
           <>
-            <View style={styles.content} >
+            <View style={styles.content}>
               <Text style={styles.title}>{name}</Text>
               <Number number={price} style={styles.price} />
             </View>
@@ -44,25 +44,30 @@ const ItemListFood = ({
           <>
             <View style={styles.content}>
               <Text style={styles.title}>{name}</Text>
-              <Text style={styles.price}>
-                {items} items.IDR {price}
-              </Text>
+              <View style={styles.row}>
+                <Text style={styles.price}>{items} items</Text>
+                <View style={styles.dot} />
+                <Number style={styles.price} number={price} />
+              </View>
             </View>
           </>
         );
       case 'past-order':
         // item past order
+        const formatedDate = new Date(date).toLocaleDateString();
         return (
           <>
             <View style={styles.content}>
               <Text style={styles.title}>{name}</Text>
-              <Text style={styles.price}>
-                {items} items.IDR {price}
-              </Text>
+              <View style={styles.row}>
+                <Text style={styles.price}>{items} items</Text>
+                <View style={styles.dot} />
+                <Number style={styles.price} number={price} />
+              </View>
             </View>
             <View>
-              <Text style={styles.date}>{date}</Text>
-              <Text style={styles.status}>{status}</Text>
+              <Text style={styles.date}>{formatedDate}</Text>
+              <Text style={styles.status(status)}>{status}</Text>
             </View>
           </>
         );
@@ -130,9 +135,20 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: '#8d92a3',
   },
-  status: {
+  status: (status) => ({
     fontFamily: 'Poppins-Regular',
     fontSize: 10,
-    color: '#d9435e',
+    color: status === 'CANCELLED' ? '#d9435e' : '1ABC9C',
+  }),
+  dot: {
+    marginHorizontal: 3,
+    height: 3,
+    width: 3,
+    borderRadius: 5,
+    backgroundColor: '#8d92a3'
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });

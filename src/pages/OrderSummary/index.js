@@ -1,15 +1,81 @@
-import React from 'react';
+import Axios from 'axios';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {foodDummy1} from '../../assets';
-import {Button, Gap, Header, ItemListFood, ItemValue} from '../../components';
+import {
+  Button,
+  Header,
+  ItemListFood,
+  ItemValue,
+  Loading,
+} from '../../components';
+import {API_HOST} from '../../config';
+import {getData} from '../../utils';
+import {WebView} from 'react-native-webview';
 
 const OrderSummary = ({navigation, route}) => {
   const {item, transaction, userProfile} = route.params;
+  const [token, setToken] = useState('');
+  const [isPaymentOpen, setIsPaymentOpen] = useState(false);
+  const [paymentURL, setPaymentURL] = useState('https://google.com');
 
+
+  const onCheckOut = () => {
+    const data = {
+      food_id: item.id,
+      user_id: userProfile.id,
+      quantity: transaction.totalItem,
+      total: transaction.total,
+      status: 'PENDING',
+    };
+    getData('token').then((resToken) => {
+      Axios.post(`${API_HOST.url}/checkout`, data, {
+        headers: {
+          Authorization: resToken.value,
+        },
+      })
+        .then((res) => {
+          console.log('success checkout: ', res.data);
+          setIsPaymentOpen(true);
+          setPaymentURL(res.data.data.payment_url);
+        })
+        .catch((err) => {
+          console.log('error checkout: ', err);
+        });
+    });
+  };
+
+  const onNavChange = (state) => {
+    // TODO: Use This For Production
+    // const urlSuccess =
+    //   'http://foodmarket-backend.buildwithangga.id/midtrans/success?order_id=574&status_code=201&transaction_status=pending';
+    const titleWeb = 'Laravel';
+    if (state.title === titleWeb) {
+      navigation.reset({index: 0, routes: [{name: 'SuccessOrder'}]});
+    }
+  };
+
+  if (isPaymentOpen) {
+    return (
+      <>
+        <Header
+          title="Payment"
+          onBack
+          subTitle="You deserve better meal"
+          onPress={() => navigation.goBack()}
+        />
+        <WebView
+          source={{uri: paymentURL}}
+          startInLoadingState={true}
+          renderLoading={() => <Loading />}
+          onNavigationStateChange={onNavChange}
+        />
+      </>
+    );
+  }
   return (
     <View style={styles.page}>
       <Header
-        title="Payment"
+        title="Order Summary"
         onBack
         subTitle="You deserve better meal"
         onPress={() => navigation.goBack()}
@@ -43,10 +109,7 @@ const OrderSummary = ({navigation, route}) => {
         <ItemValue label="City" value={userProfile.city} />
       </View>
       <View style={styles.btnContainer}>
-        <Button
-          label="Checkout Now"
-          onPress={() => navigation.replace('SuccessOrder')}
-        />
+        <Button label="Checkout Now" onPress={onCheckOut} />
       </View>
     </View>
   );
